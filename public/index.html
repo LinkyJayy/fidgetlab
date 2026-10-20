@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>FidgetLab</title>
-  <meta name="description" content="FidgetLab — pop-its, spinners, Newton's cradle, joysticks, knobs and switches with satisfying sounds.">
-  <meta name="theme-color" content="#1c1b22">
-  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="FidgetLab — pop-its, spinners, Newton's cradle, gears, joysticks, knobs, sliders and switches with satisfying sounds.">
+  <meta name="theme-color" content="#0d0e13">
+  <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,43 +19,46 @@
   <script type="module" src="/js/app.js"></script>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <button class="icon-btn back" id="backBtn" aria-label="Back to all fidgets" hidden>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <a class="brand" href="#/" aria-label="FidgetLab home">
-        <span class="logo-tile"><img src="/img/logo.png" alt="" width="297" height="384"></span>
-        <span class="wordmark">Fidget<b>Lab</b></span>
-      </a>
-      <h1 class="page-title" id="pageTitle" hidden></h1>
-      <div class="top-actions">
-        <button class="icon-btn" id="muteBtn" aria-label="Mute sounds" aria-pressed="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true" class="ico-sound"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="wave" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="cross" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
-        </button>
-        <button class="icon-btn" id="settingsBtn" aria-label="Settings">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
-        </button>
-        <button class="avatar-btn" id="accountBtn" aria-label="Account">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
-          <span class="avatar-initial" hidden></span>
-        </button>
-      </div>
-    </header>
+  <main id="view" class="view"></main>
 
-    <main id="view" class="view" tabindex="-1"></main>
+  <nav class="pager" id="pager" aria-label="Pages"></nav>
+
+  <div class="fabs">
+    <button class="fab" id="accountBtn" aria-label="Account">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="fab-initial" hidden></span>
+    </button>
+    <button class="fab" id="layoutBtn" aria-label="Switch layout">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico-board"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ico-swipe"><rect x="7" y="4" width="10" height="16" rx="2.5"/><path d="M3.5 9.5L1.5 12l2 2.5M20.5 9.5l2 2.5-2 2.5"/></svg>
+    </button>
+    <button class="fab" id="settingsBtn" aria-label="Settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
   </div>
 
-  <!-- Sheets (settings / account) -->
+  <button class="done-pill" id="doneEditing" hidden>Done</button>
+
+  <!-- Sheets -->
   <div class="scrim" id="scrim" hidden></div>
 
   <section class="sheet" id="settingsSheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
-    <div class="sheet-grip" aria-hidden="true"></div>
     <div class="sheet-head">
       <h2 id="settingsTitle">Settings</h2>
       <button class="icon-btn" data-close aria-label="Close settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="sheet-body">
+      <h3 class="group-label">Layout</h3>
+      <div class="segmented" id="layoutSeg" role="radiogroup" aria-label="Layout">
+        <button role="radio" data-layout="board">Board</button>
+        <button role="radio" data-layout="swipe">Swipe to switch</button>
+      </div>
+      <p class="hint" id="layoutHint"></p>
+      <div class="btn-row" id="boardTools">
+        <button class="btn" id="editBoard">Edit board</button>
+        <button class="btn" id="resetBoard">Reset board</button>
+      </div>
+
       <h3 class="group-label">Color scheme</h3>
       <div class="schemes" id="schemes" role="radiogroup" aria-label="Color scheme"></div>
       <div class="custom-colors" id="customColors" hidden>
@@ -66,9 +69,9 @@
 
       <h3 class="group-label">Appearance</h3>
       <div class="segmented" id="modeSeg" role="radiogroup" aria-label="Appearance">
-        <button role="radio" data-mode="system">System</button>
-        <button role="radio" data-mode="light">Light</button>
         <button role="radio" data-mode="dark">Dark</button>
+        <button role="radio" data-mode="light">Light</button>
+        <button role="radio" data-mode="system">System</button>
       </div>
 
       <h3 class="group-label">Sound &amp; feel</h3>
@@ -84,23 +87,34 @@
         <span>Vibration</span>
         <button class="mini-switch" id="hapticsSwitch" role="switch" aria-label="Vibration"></button>
       </div>
-      <button class="btn ghost wide" id="testSound">Play a test pop</button>
 
       <div id="installBlock" hidden>
         <h3 class="group-label">App</h3>
         <button class="btn primary wide" id="installBtn">Install FidgetLab</button>
         <p class="hint" id="installHint"></p>
       </div>
+
+      <div class="about">
+        <span class="logo-tile"><img src="/img/logo.png" alt="" width="297" height="384"></span>
+        <span>FidgetLab</span>
+      </div>
     </div>
   </section>
 
   <section class="sheet" id="accountSheet" role="dialog" aria-modal="true" aria-labelledby="accountTitle" hidden>
-    <div class="sheet-grip" aria-hidden="true"></div>
     <div class="sheet-head">
       <h2 id="accountTitle">Account</h2>
       <button class="icon-btn" data-close aria-label="Close account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="sheet-body" id="accountBody"></div>
+  </section>
+
+  <section class="sheet" id="pickerSheet" role="dialog" aria-modal="true" aria-labelledby="pickerTitle" hidden>
+    <div class="sheet-head">
+      <h2 id="pickerTitle">Choose a fidget</h2>
+      <button class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="sheet-body"><div class="picker" id="picker"></div></div>
   </section>
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

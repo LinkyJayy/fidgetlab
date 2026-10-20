@@ -2,7 +2,11 @@
 
 A collection of fidgets with sounds made in the browser. You can install it as a PWA and deploy it on Railway.
 
-**Fidgets:** Pop-it (3×3), Fidget Spinner, Newton's Cradle, Joystick, Knob, Toggle Switches (three, stacked vertically).
+**Fidgets:** Pop-it (3×3), Fidget Spinner, Newton's Cradle, Toggle Switches (three, stacked vertically), Knob, Slider, Gears (one gear drives two others), Joystick.
+
+**Layouts**
+- **Board:** a scrollable 2 × 8 board of fidgets with a dot pager on the right. Use *Edit board* in Settings to choose which fidget goes in each cell.
+- **Swipe to switch:** one fidget at a time. Swipe left or right along the bar at the top (or tap the arrows) to move to the next or previous one.
 
 **Features**
 - Installable PWA that works offline once loaded (service worker + manifest, maskable icon)

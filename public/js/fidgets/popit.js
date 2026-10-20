@@ -6,28 +6,21 @@ const SIZE = 3;
 export default {
   id: 'popit',
   name: 'Pop-it',
-  blurb: 'Tap or drag to pop. Do it again to un-pop.',
   stat: 'pops',
   mount(el, { sound, haptic, stat }) {
     el.innerHTML = `
-      <div class="popit-tray" role="group" aria-label="Pop-it, ${SIZE} by ${SIZE}">
+      <div class="popit" role="group" aria-label="Pop-it, ${SIZE} by ${SIZE}">
         ${Array.from({ length: SIZE * SIZE }, (_, i) => `
-          <button class="bubble" data-i="${i}" data-row="${Math.floor(i / SIZE)}" aria-pressed="false" aria-label="Bubble ${i + 1}"></button>
+          <button class="bubble tone-${(Math.floor(i / SIZE) + (i % SIZE)) % 2}" aria-pressed="false" aria-label="Bubble ${i + 1}"></button>
         `).join('')}
-      </div>
-      <p class="fidget-caption"><span data-count>0</span> popped</p>`;
+      </div>`;
 
-    const tray = el.querySelector('.popit-tray');
-    const bubbles = [...tray.querySelectorAll('.bubble')];
-    const count = el.querySelector('[data-count]');
-    const strokes = new Map(); // pointerId -> Set of bubbles already flipped
+    const tray = el.querySelector('.popit');
+    const strokes = new Map(); // pointerId -> Set of bubbles already flipped this stroke
 
     function flip(b) {
       const popped = b.getAttribute('aria-pressed') !== 'true';
       b.setAttribute('aria-pressed', String(popped));
-      b.classList.remove('bounce');
-      void b.offsetWidth; // restart the animation
-      b.classList.add('bounce');
       if (popped) {
         sound.pop();
         haptic(12);
@@ -36,49 +29,38 @@ export default {
         sound.unpop();
         haptic(6);
       }
-      count.textContent = bubbles.filter((x) => x.getAttribute('aria-pressed') === 'true').length;
     }
 
-    function bubbleAt(x, y) {
-      const hit = document.elementFromPoint(x, y);
-      return hit && hit.classList.contains('bubble') && tray.contains(hit) ? hit : null;
-    }
-
-    function visit(e) {
-      const seen = strokes.get(e.pointerId);
+    function visit(id, x, y) {
+      const seen = strokes.get(id);
       if (!seen) return;
-      const b = bubbleAt(e.clientX, e.clientY);
+      const hit = document.elementFromPoint(x, y);
+      const b = hit && hit.classList.contains('bubble') && tray.contains(hit) ? hit : null;
       if (b && !seen.has(b)) {
         seen.add(b);
         flip(b);
       }
     }
 
-    function down(e) {
+    tray.addEventListener('pointerdown', (e) => {
       if (e.button > 0) return;
       e.preventDefault();
       tray.setPointerCapture(e.pointerId);
       strokes.set(e.pointerId, new Set());
-      visit(e);
-    }
-    function move(e) {
+      visit(e.pointerId, e.clientX, e.clientY);
+    });
+    tray.addEventListener('pointermove', (e) => {
       // Coalesced events catch bubbles crossed during fast swipes.
-      const list = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-      for (const ev of list.length ? list : [e]) visit({ pointerId: e.pointerId, clientX: ev.clientX, clientY: ev.clientY });
-    }
-    function up(e) {
-      strokes.delete(e.pointerId);
-    }
+      const list = e.getCoalescedEvents?.() || [];
+      for (const ev of list.length ? list : [e]) visit(e.pointerId, ev.clientX, ev.clientY);
+    });
+    const end = (e) => strokes.delete(e.pointerId);
+    tray.addEventListener('pointerup', end);
+    tray.addEventListener('pointercancel', end);
     // Keyboard users toggle with Enter/Space via the native button click.
-    function click(e) {
+    tray.addEventListener('click', (e) => {
       if (e.detail === 0 && e.target.classList.contains('bubble')) flip(e.target);
-    }
-
-    tray.addEventListener('pointerdown', down);
-    tray.addEventListener('pointermove', move);
-    tray.addEventListener('pointerup', up);
-    tray.addEventListener('pointercancel', up);
-    tray.addEventListener('click', click);
+    });
     return () => {};
   },
 };

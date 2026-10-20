@@ -1,15 +1,22 @@
 // Local-first state. Guests keep everything in localStorage; signed-in users
 // also sync settings and stats to their account.
 
-export const STAT_KEYS = ['pops', 'spins', 'clacks', 'sparks', 'clicks', 'toggles'];
+export const STAT_KEYS = ['pops', 'spins', 'clacks', 'sparks', 'clicks', 'toggles', 'gears', 'slides'];
+
+export const DEFAULT_BOARD = [
+  'spinner', 'popit', 'toggles', 'cradle', 'knob', 'slider', 'gears', 'joystick',
+  'popit', 'spinner', 'cradle', 'toggles', 'slider', 'knob', 'joystick', 'gears',
+];
 
 export const DEFAULT_SETTINGS = {
   scheme: 'candy',
   custom: { c1: '#8000ff', c2: '#ff3d9a', c3: '#ffb86b' },
-  mode: 'system',
+  mode: 'dark',
   volume: 0.8,
   muted: false,
   haptics: true,
+  layout: 'board',
+  board: DEFAULT_BOARD,
 };
 
 const K = {

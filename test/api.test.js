@@ -63,10 +63,18 @@ test('register, sync, login, logout, delete', async () => {
   assert.equal(s.data.settings.custom.c1, '#112233');
   assert.notEqual(s.data.settings.custom.c2, 'red');
 
-  const st = await call('/api/stats', { method: 'POST', cookie, body: { deltas: { pops: 3, spins: -4, clicks: 2.7 } } });
+  const lay = await call('/api/settings', { method: 'PUT', cookie, body: { layout: 'swipe', board: Array(16).fill('gears') } });
+  assert.equal(lay.data.settings.layout, 'swipe');
+  assert.equal(lay.data.settings.board.length, 16);
+  const badBoard = await call('/api/settings', { method: 'PUT', cookie, body: { board: ['nope'] } });
+  assert.deepEqual(badBoard.data.settings.board, Array(16).fill('gears'));
+
+  const st = await call('/api/stats', { method: 'POST', cookie, body: { deltas: { pops: 3, spins: -4, clicks: 2.7, gears: 2, slides: 5 } } });
   assert.equal(st.data.stats.pops, 8);
   assert.equal(st.data.stats.spins, 0);
   assert.equal(st.data.stats.clicks, 2);
+  assert.equal(st.data.stats.gears, 2);
+  assert.equal(st.data.stats.slides, 5);
 
   assert.equal((await call('/api/login', { method: 'POST', body: { username: 'tester', password: 'wrong pass' } })).status, 401);
   const login = await call('/api/login', { method: 'POST', body: { username: 'TESTER', password: 'correct horse' } });

@@ -150,6 +150,19 @@ export const sound = {
     tone({ type: 'triangle', f0: 880 * p, peak: 0.25, decay: 0.18 });
     tone({ type: 'triangle', f0: 1318.5 * p, peak: 0.22, decay: 0.25, at: 0.07 });
   },
+  // Slider notch: a short pitched blip, higher as the value rises (0..1).
+  notch(value = 0.5) {
+    if (!ready()) return;
+    const f = 500 + value * 900;
+    tone({ type: 'triangle', f0: f, peak: 0.22, decay: 0.035 });
+    burst({ freq: 4200, q: 3, peak: 0.18, decay: 0.008 });
+  },
+  // Gear tooth engaging: a dry ratchet tick with a little body.
+  ratchet(strength = 1) {
+    if (!ready()) return;
+    burst({ freq: 2600, q: 5, peak: 0.32 * strength, decay: 0.012 });
+    tone({ type: 'square', f0: 420, f1: 300, glide: 0.01, peak: 0.05 * strength, decay: 0.014 });
+  },
   // Spring release.
   boing() {
     if (!ready()) return;

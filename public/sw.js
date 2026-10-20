@@ -2,7 +2,7 @@
 // offline. Static files are network-first (fresh when online, cached when not);
 // the API is never cached.
 
-const VERSION = 'fidgetlab-v1';
+const VERSION = 'fidgetlab-v2';
 const SHELL = [
   '/',
   '/index.html',
@@ -25,6 +25,8 @@ const SHELL = [
   '/js/fidgets/joystick.js',
   '/js/fidgets/knob.js',
   '/js/fidgets/toggles.js',
+  '/js/fidgets/gears.js',
+  '/js/fidgets/slider.js',
 ];
 
 self.addEventListener('install', (event) => {

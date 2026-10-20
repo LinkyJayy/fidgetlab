@@ -46,7 +46,7 @@ export function applyTheme(settings) {
   const mode = resolvedMode(settings);
   root.dataset.theme = mode;
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = mode === 'dark' ? '#141318' : '#f5f4f8';
+  if (meta) meta.content = mode === 'dark' ? '#0d0e13' : '#f1f2f6';
 }
 
 export function onSystemModeChange(fn) {
