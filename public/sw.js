@@ -2,7 +2,7 @@
 // offline. Static files are network-first (fresh when online, cached when not);
 // the API is never cached.
 
-const VERSION = 'fidgetlab-v2';
+const VERSION = 'fidgetlab-v3';
 const SHELL = [
   '/',
   '/index.html',

@@ -1,7 +1,8 @@
-// 3×3 pop-it. Tap or drag across bubbles: each bubble flips once per stroke,
+// 3×4 pop-it. Tap or drag across bubbles: each bubble flips once per stroke,
 // so popped bubbles come back when you go over them again.
 
-const SIZE = 3;
+const COLS = 3;
+const ROWS = 4;
 
 export default {
   id: 'popit',
@@ -9,9 +10,9 @@ export default {
   stat: 'pops',
   mount(el, { sound, haptic, stat }) {
     el.innerHTML = `
-      <div class="popit" role="group" aria-label="Pop-it, ${SIZE} by ${SIZE}">
-        ${Array.from({ length: SIZE * SIZE }, (_, i) => `
-          <button class="bubble tone-${(Math.floor(i / SIZE) + (i % SIZE)) % 2}" aria-pressed="false" aria-label="Bubble ${i + 1}"></button>
+      <div class="popit" role="group" aria-label="Pop-it, ${COLS} by ${ROWS}">
+        ${Array.from({ length: COLS * ROWS }, (_, i) => `
+          <button class="bubble tone-${(Math.floor(i / COLS) + (i % COLS)) % 2}" aria-pressed="false" aria-label="Bubble ${i + 1}"></button>
         `).join('')}
       </div>`;
 

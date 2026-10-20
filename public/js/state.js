@@ -98,8 +98,9 @@ function adoptAccount(data) {
 
 let settingsTimer = null;
 export function updateSettings(patch) {
-  state.settings = { ...state.settings, ...patch };
-  if (patch.custom) state.settings.custom = { ...state.settings.custom, ...patch.custom };
+  // Custom colors are merged one at a time, so keep the ones not being changed.
+  const custom = patch.custom ? { ...state.settings.custom, ...patch.custom } : state.settings.custom;
+  state.settings = { ...state.settings, ...patch, custom };
   write(K.settings, state.settings);
   emit('settings');
   if (state.user) {

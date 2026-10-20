@@ -284,7 +284,7 @@ pager.addEventListener('click', (e) => {
 // ---------- small icons (picker) ----------
 
 const ICONS = {
-  popit: `<svg viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="12" fill="var(--panel)"/>${[0, 1, 2].map((r) => [0, 1, 2].map((c) => `<circle cx="${18 + c * 14}" cy="${18 + r * 14}" r="5.5" fill="${(r + c) % 2 ? 'var(--c2)' : 'var(--c1)'}"/>`).join('')).join('')}</svg>`,
+  popit: `<svg viewBox="0 0 64 64"><rect x="12" y="4" width="40" height="56" rx="10" fill="var(--panel)"/>${[0, 1, 2, 3].map((r) => [0, 1, 2].map((c) => `<circle cx="${21 + c * 11}" cy="${15 + r * 11.3}" r="4.4" fill="${(r + c) % 2 ? 'var(--c2)' : 'var(--c1)'}"/>`).join('')).join('')}</svg>`,
   spinner: `<svg viewBox="0 0 64 64"><g stroke="var(--track)" stroke-width="3"><path d="M32 32L32 13M32 32L48.5 41.5M32 32L15.5 41.5"/></g><circle cx="32" cy="13" r="8" fill="var(--c1)"/><circle cx="48.5" cy="41.5" r="8" fill="var(--c2)"/><circle cx="15.5" cy="41.5" r="8" fill="var(--c1)"/><circle cx="32" cy="32" r="6" fill="var(--track)"/><circle cx="32" cy="32" r="2.6" fill="var(--c2)"/></svg>`,
   cradle: `<svg viewBox="0 0 64 64"><path d="M8 12h48" stroke="var(--track)" stroke-width="3" stroke-linecap="round"/>${[20, 26, 32, 38, 44].map((x) => `<path d="M${x} 12v30" stroke="var(--track)" stroke-width="1.2"/><circle cx="${x}" cy="44" r="3" fill="var(--c1)"/>`).join('')}</svg>`,
   toggles: `<svg viewBox="0 0 64 64">${[14, 32, 50].map((y, i) => `<rect x="14" y="${y - 6}" width="36" height="12" rx="6" fill="${i === 1 ? 'var(--c1)' : 'var(--track)'}"/><circle cx="${i === 1 ? 44 : 20}" cy="${y}" r="4.6" fill="#e9eaee"/>`).join('')}</svg>`,
