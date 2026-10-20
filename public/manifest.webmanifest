@@ -1,0 +1,23 @@
+{
+  "name": "FidgetLab",
+  "short_name": "FidgetLab",
+  "description": "Pop-its, spinners, Newton's cradle, joysticks, knobs and switches with satisfying sounds.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#2c2c2c",
+  "theme_color": "#1c1b22",
+  "categories": ["entertainment", "lifestyle", "health"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Pop-it", "url": "/#/popit", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Fidget Spinner", "url": "/#/spinner", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Newton's Cradle", "url": "/#/cradle", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
